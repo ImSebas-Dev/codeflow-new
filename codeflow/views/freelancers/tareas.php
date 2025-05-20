@@ -121,10 +121,10 @@
                             <div class="task-attachments">
                                 <h4><i class="fas fa-paperclip"></i> Repositorios adjuntos</h4>
                                 <div class="attachments-grid">
-                                    <a href="#" class="attachment">
+                                    <div class="input-with-icon">
                                         <i class="fa-brands fa-github"></i>
-                                        <span>https://github.com/ImSebas-Dev/codeflow</span>
-                                    </a>
+                                        <input type="text" class="input-repository" name="repositorio">
+                                    </div>
                                 </div>
                                 <button class="btn btn-outline btn-small">
                                     <i class="fas fa-plus"></i> Añadir repositorio

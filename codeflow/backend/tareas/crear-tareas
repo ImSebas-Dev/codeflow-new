@@ -1,0 +1,43 @@
+<?php
+session_start();
+include 'conexion.php'; // Aquí conectas a tu BD
+
+// Asegúrate de que el freelancer esté logueado
+if (!isset($_SESSION['freelancer_id'])) {
+    die("Acceso denegado.");
+}
+
+$freelancer_id = $_SESSION['freelancer_id'];
+
+// Recoger los datos del formulario
+$titulo = trim($_POST['titulo']);
+$descripcion = trim($_POST['descripcion']);
+$fecha_entrega = $_POST['fecha_entrega'];
+
+// Buscar el proyecto asignado al freelancer
+$query = "SELECT id_proyecto FROM proyecto_freelancer WHERE id_freelancer = ? LIMIT 1";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $freelancer_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows === 0) {
+    die("No se encontró ningún proyecto asignado.");
+}
+
+$row = $result->fetch_assoc();
+$id_proyecto = $row['id_proyecto'];
+
+// Insertar la tarea
+$insert = "INSERT INTO tareas (titulo, descripcion, fecha_entrega, id_proyecto) VALUES (?, ?, ?, ?)";
+$stmt_insert = $conn->prepare($insert);
+$stmt_insert->bind_param("sssi", $titulo, $descripcion, $fecha_entrega, $id_proyecto);
+
+if ($stmt_insert->execute()) {
+    echo "✅ Tarea creada correctamente.";
+} else {
+    echo "❌ Error al crear la tarea: " . $conn->error;
+}
+
+$conn->close();
+?>
