@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - CodeFlow</title>
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="register-background">
+        <div class="register-overlay"></div>
+        
+        <header class="register-header">
+            <div class="container">
+                <div class="logo">
+                    <span class="logo-icon"><i class="fas fa-code"></i></span>
+                    <span class="logo-text">CodeFlow</span>
+                </div>
+                <a href="index.html" class="btn btn-outline btn-small">
+                    <i class="fas fa-arrow-left"></i> Volver al inicio
+                </a>
+            </div>
+        </header>
+
+        <main class="register-main">
+            <div class="container">
+                <div class="register-card">
+                    <div class="register-header">
+                        <h1>Únete a CodeFlow</h1>
+                        <p>Crea tu cuenta y encuentra los mejores talentos o proyectos</p>
+                    </div>
+                    
+                    <div class="register-tabs">
+                        <button class="tab-btn active" data-tab="company">Empresa</button>
+                        <button class="tab-btn" data-tab="freelancer">Freelancer</button>
+                    </div>
+                    
+                    <!-- Formulario para Empresas -->
+                    <form id="company-form" class="register-form active" method="POST" action="../../backend/usuarios/registro-empresa.php">
+                        <div class="form-group">
+                            <label for="company-name">Nombre de la empresa</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-building"></i>
+                                <input type="text" name="nombre-empresa" id="company-name" placeholder="Ej: Tech Solutions S.A." required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company-email">Correo electrónico</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" name="correo-empresa" id="company-email" placeholder="contacto@empresa.com" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company-password">Contraseña</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" name="password-empresa" id="company-password" placeholder="••••••••" required>
+                            </div>
+                            <div class="password-strength">
+                                <div class="strength-bar"></div>
+                                <span class="strength-text">Seguridad: <span>Débil</span></span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company-phone">Teléfono</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-phone"></i>
+                                <input type="text" name="phone-empresa" id="company-phone" placeholder="(601) 3195608" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company-industry">Industria</label>
+                            <select name="industria" id="company-industry" class="custom-select">
+                                <option value="" disabled selected>Selecciona una industria</option>
+                                <option value="tech">Tecnología</option>
+                                <option value="finance">Finanzas</option>
+                                <option value="healthcare">Salud</option>
+                                <option value="education">Educación</option>
+                                <option value="other">Otra</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="company-terms" required>
+                            <label for="company-terms">Acepto los <a href="#">Términos de servicio</a> y <a href="#">Política de privacidad</a></label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Registrar empresa
+                        </button>
+                        
+                        <div class="register-footer">
+                            ¿Ya tienes una cuenta? <a href="login.html">Inicia sesión</a>
+                        </div>
+                    </form>
+                    
+                    <!-- Formulario para Freelancers -->
+                    <form id="freelancer-form" class="register-form" method="POST" action="../../backend/usuarios/registro-freelancer.php">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="freelancer-firstname">Nombre</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" name="nombre-freelancer" id="freelancer-firstname" placeholder="Ej: Juan" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="freelancer-lastname">Apellido</label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" name="apellido-freelancer" id="freelancer-lastname" placeholder="Ej: Pérez" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="freelancer-email">Correo electrónico</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" name="correo-freelancer" id="freelancer-email" placeholder="tu@email.com" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="freelancer-password">Contraseña</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" name="password-freelancer" id="freelancer-password" placeholder="••••••••" required>
+                            </div>
+                            <div class="password-strength">
+                                <div class="strength-bar"></div>
+                                <span class="strength-text">Seguridad: <span>Débil</span></span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="freelancer-title">Título profesional</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-briefcase"></i>
+                                <input type="text" name="titulo-freelancer" id="freelancer-title" placeholder="Ej: Desarrollador Fullstack" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="freelancer-skills">Habilidades técnicas</label>
+                            <div class="skills-input-container">
+                                <div class="input-with-icon">
+                                    <i class="fas fa-code"></i>
+                                    <input type="text" name="habilidades-freelancer" id="freelancer-skills" placeholder="Ej: JavaScript, React, Node.js">
+                                </div>
+                                <div class="skills-tags"></div>
+                                <small>Presiona Enter o coma para agregar cada habilidad</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="freelancer-phone">Teléfono</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-phone"></i>
+                                <input type="text" name="phone-freelancer" id="freelancer-phone" placeholder="(321) 5403721" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="freelancer-gender">Género</label>
+                            <select name="gender-freelancer" id="freelancer-gender" class="custom-select">
+                                <option value="" disabled selected>Selecciona tu género</option>
+                                <option value="tech">Hombre</option>
+                                <option value="finance">Mujer</option>
+                                <option value="healthcare">Otro</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="freelancer-terms" required>
+                            <label for="freelancer-terms">Acepto los <a href="#">Términos de servicio</a> y <a href="#">Política de privacidad</a></label>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="freelancer-newsletter">
+                            <label for="freelancer-newsletter">Deseo recibir noticias y ofertas de CodeFlow</label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Registrarme como Freelancer
+                        </button>
+                        
+                        <div class="register-footer">
+                            ¿Ya tienes una cuenta? <a href="login.html">Inicia sesión</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <footer class="register-footer">
+            <div class="container">
+                <p>&copy; 2023 CodeFlow. Todos los derechos reservados.</p>
+                <div class="footer-links">
+                    <a href="#">Términos</a>
+                    <a href="#">Privacidad</a>
+                    <a href="#">Ayuda</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../../assets/js/registro.js"></script>
+</body>
+</html>
