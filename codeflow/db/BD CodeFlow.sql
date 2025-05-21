@@ -54,7 +54,6 @@ CREATE TABLE IF NOT EXISTS Freelancers (
     id_freelancer BIGINT PRIMARY KEY AUTO_INCREMENT,
     id_usuario BIGINT UNIQUE NOT NULL,
     nombre VARCHAR(100),
-    apellido VARCHAR(100),
     correo VARCHAR(255) UNIQUE NOT NULL,
     telefono VARCHAR(20),
     descripcion_freelancer TEXT,
@@ -260,7 +259,7 @@ CREATE TABLE IF NOT EXISTS Notificaciones (
 CREATE TABLE IF NOT EXISTS Suscripciones (
     id_suscripcion BIGINT PRIMARY KEY AUTO_INCREMENT,
     id_usuario BIGINT NOT NULL,
-    id_pago BIGINT NOT NULL,
+    id_pago BIGINT,
     tipo_suscripcion VARCHAR(255) NOT NULL,
     valor DECIMAL(10,2) NOT NULL,
     fecha_fin DATE,
@@ -281,4 +280,4 @@ CREATE TABLE IF NOT EXISTS Tokens_Recuperacion (
 -- INDICES DE OPTIMIZACIÓN
 CREATE INDEX idx_proyectos_titulo ON Proyectos(titulo);
 CREATE INDEX idx_proyectos_estado ON Proyectos(estado);
-CREATE INDEX idx_freelancers_nombre ON Freelancers(nombre, apellido);
+CREATE INDEX idx_freelancers_nombre ON Freelancers(nombre);

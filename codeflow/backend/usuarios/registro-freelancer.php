@@ -9,7 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Obtener los datos del formulario
     $nombre = $_POST['nombre-freelancer'];
-    $apellido = $_POST['apellido-freelancer'];
     $correo = $_POST['correo-freelancer'];
     $contra = password_hash($_POST['password-freelancer'], PASSWORD_BCRYPT);
     $titulo = $_POST['titulo-freelancer'];
@@ -45,14 +44,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($stmt->execute()) {
             // Obtener el ID del usuario recién insertado
-            $id_usuario = $stmt->insert_id;
+            $id_usuario = $conn->insert_id;
 
             // Insertar datos en la tabla Freelancers
-            $query_insert_freelancer = "INSERT INTO Freelancers (id_usuario, nombre, apellido, correo, telefono, titulo, genero) VALUES (?,?,?,?,?,?,?)";
+            $query_insert_freelancer = "INSERT INTO Freelancers (id_usuario, nombre, correo, telefono, titulo, genero) VALUES (?,?,?,?,?,?)";
             $stmt_freelancer = $conn->prepare($query_insert_freelancer);
-            $stmt_freelancer->bind_param("issssss", $id_usuario, $nombre, $apellido, $correo, $telefono, $titulo, $genero);
+            $stmt_freelancer->bind_param("isssss", $id_usuario, $nombre, $correo, $telefono, $titulo, $genero);
 
-            if ($stmt_freelancer->execute()) {
+            // Insertar datos en la tabla Suscripciones
+            $query_insert_suscripcion = "INSERT INTO Suscripciones (id_usuario, tipo_suscripcion, valor) VALUES (?,'Básico',0)";
+            $stmt_suscripcion = $conn->prepare($query_insert_suscripcion);
+            $stmt_suscripcion->bind_param("i", $id_usuario);
+
+            if ($stmt_freelancer->execute() && $stmt_suscripcion->execute()) {
                 header("Location: http://localhost/codeflow-new/codeflow/views/public/login.html");
                 exit();
             } else {

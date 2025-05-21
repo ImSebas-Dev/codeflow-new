@@ -41,14 +41,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($stmt->execute()) {
             // Obtener el ID del usuario recién insertado
-            $id_usuario = $stmt->insert_id;
+            $id_usuario = $conn->insert_id;
 
             // Insertar datos en la tabla Empresas
             $query_insert_empresa = "INSERT INTO Empresas (id_usuario, nombre_empresa, correo_corporativo, telefono,  industria) VALUES (?,?,?,?,?)";
             $stmt_empresa = $conn->prepare($query_insert_empresa);
             $stmt_empresa->bind_param("issss", $id_usuario, $nombre_empresa, $correo_corporativo, $phone_empresa, $industria);
 
-            if ($stmt_empresa->execute()) {
+            // Insertar datos en la tabla Suscripciones
+            $query_insert_suscripcion = "INSERT INTO Suscripciones (id_usuario, tipo_suscripcion, valor) VALUES (?,'Básico',0)";
+            $stmt_suscripcion = $conn->prepare($query_insert_suscripcion);
+            $stmt_suscripcion->bind_param("i", $id_usuario);
+
+            if ($stmt_empresa->execute() && $stmt_suscripcion->execute()) {
                 header("Location: http://localhost/codeflow-new/codeflow/views/public/login.html");
                 exit();
             } else {

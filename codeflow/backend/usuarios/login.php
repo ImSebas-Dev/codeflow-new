@@ -6,11 +6,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correo = filter_var($_POST["correo"], FILTER_SANITIZE_EMAIL);
     $contra = $_POST["password"];
 
+    // Consulta para obtener el ID del usuario, la contraseña y el rol
     $stmt = $conn->prepare("SELECT id_usuario, contra, id_rol FROM Usuarios WHERE correo = ?");
     $stmt->bind_param("s", $correo);
     $stmt->execute();
     $stmt->store_result();
 
+    // Verificar si el correo existe
     if ($stmt->num_rows > 0) {
         $stmt->bind_result($id_usuario, $hashed_password, $rol);
         $stmt->fetch();
@@ -18,9 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verificar la contraseña
         if (password_verify($contra, $hashed_password)) {
             $_SESSION["id_usuario"] = $id_usuario;
-            $_SESSION["rol"] = $rol;
+            $_SESSION["id_rol"] = $rol;
 
-            // Redirigir según el rol
+            // Obtener el ID del freelancer o empresa según el rol
             if ($rol == 1) {
                 $sql_freelancer = "SELECT id_freelancer FROM Freelancers WHERE id_usuario = ?";
                 $stmt_freelancer = $conn->prepare($sql_freelancer);

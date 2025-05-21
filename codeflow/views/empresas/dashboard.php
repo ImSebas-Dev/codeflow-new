@@ -57,7 +57,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="../public/suscripcion.html">
+                        <a href="../public/suscripcion.php">
                             <i class="fas fa-coins"></i>
                             <span>Suscripciones</span>
                         </a>
