@@ -142,13 +142,14 @@ CREATE TABLE IF NOT EXISTS Estado_Pago (
 
 CREATE TABLE IF NOT EXISTS Pagos (
     id_pago BIGINT PRIMARY KEY AUTO_INCREMENT,
-    id_freelancer BIGINT NOT NULL,
-    id_empresa BIGINT NOT NULL,
+    id_usuario BIGINT NOT NULL,
+    numero_tarjeta VARCHAR(255) NOT NULL,
+    propietario_tarjeta VARCHAR(255) NOT NULL,
     monto DECIMAL(10,2) NOT NULL,
-    metodo_pago ENUM('transferencia', 'tarjeta', 'paypal') NOT NULL,
+    cvc INT NOT NULL,
+    fecha_expiracion VARCHAR(255) NOT NULL,
     fecha_pago TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_freelancer) REFERENCES Freelancers(id_freelancer) ON DELETE CASCADE,
-    FOREIGN KEY (id_empresa) REFERENCES Empresas(id_empresa) ON DELETE CASCADE
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS Historial_Pagos (
@@ -259,10 +260,12 @@ CREATE TABLE IF NOT EXISTS Notificaciones (
 CREATE TABLE IF NOT EXISTS Suscripciones (
     id_suscripcion BIGINT PRIMARY KEY AUTO_INCREMENT,
     id_usuario BIGINT NOT NULL,
+    id_pago BIGINT NOT NULL,
     tipo_suscripcion ENUM('Básica', 'Profesional', 'Empresa') DEFAULT 'Básica' NOT NULL,
     valor DECIMAL(10,2) NOT NULL,
     fecha_fin DATE,
     fecha_inicio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_pago) REFERENCES Pagos(id_pago) ON DELETE CASCADE,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 

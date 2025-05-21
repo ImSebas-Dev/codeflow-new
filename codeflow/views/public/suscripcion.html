@@ -178,7 +178,7 @@
                     <label for="card-number">Número de Tarjeta*</label>
                     <div class="input-with-icon card-input">
                         <i class="far fa-credit-card"></i>
-                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+                        <input type="text" id="cardNumber" name="numero-tarjeta" placeholder="1234 5678 9012 3456" required>
                         <div class="card-icons">
                             <i class="fab fa-cc-visa"></i>
                             <i class="fab fa-cc-mastercard"></i>
@@ -191,7 +191,7 @@
                     <div class="form-group">
                         <label for="card-expiry">Fecha de Expiración*</label>
                         <div class="input-text">
-                            <input type="text" id="cardExpiry" placeholder="MM/AA" required
+                            <input type="text" id="cardExpiry" name="fecha-expiracion" placeholder="MM/AA" required
                             pattern="(0[1-9]|1[0-2])\/\d{2}">
                         </div>
                     </div>
@@ -200,7 +200,7 @@
                         <label for="cardCvc">Código CVC*</label>
                         <div class="input-with-icon">
                             <i class="fas fa-lock"></i>
-                            <input type="text" id="cardCvc" placeholder="123" required pattern="\d{3,4}"
+                            <input type="text" id="cardCvc" name="cvc" placeholder="123" required pattern="\d{3,4}"
                                 maxlength="4">
                         </div>
                     </div>
@@ -209,14 +209,14 @@
                 <div class="form-group">
                     <label for="cardName">Nombre en la Tarjeta*</label>
                     <div class="input-text">
-                        <input type="text" id="cardName" placeholder="Como aparece en la tarjeta" required>
+                        <input type="text" id="cardName" name="nombre-propietario" placeholder="Como aparece en la tarjeta" required>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="billingEmail">Correo para facturación*</label>
                     <div class="input-text">
-                        <input type="email" id="billingEmail" placeholder="tucorreo@example.com" required>
+                        <input type="email" id="billingEmail" name="correo-propietario" placeholder="tucorreo@example.com" required>
                     </div>
                 </div>
 
