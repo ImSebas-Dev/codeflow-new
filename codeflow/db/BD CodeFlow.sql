@@ -59,8 +59,7 @@ CREATE TABLE IF NOT EXISTS Freelancers (
     telefono VARCHAR(20),
     descripcion_freelancer TEXT,
     titulo VARCHAR(100),
-    habilidades TEXT,
-    genero ENUM('masculino', 'femenino', 'otro'),
+    genero VARCHAR(20),
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
@@ -145,6 +144,7 @@ CREATE TABLE IF NOT EXISTS Pagos (
     id_usuario BIGINT NOT NULL,
     numero_tarjeta VARCHAR(255) NOT NULL,
     propietario_tarjeta VARCHAR(255) NOT NULL,
+    correo_tarjeta VARCHAR(255) NOT NULL,
     monto DECIMAL(10,2) NOT NULL,
     cvc INT NOT NULL,
     fecha_expiracion VARCHAR(255) NOT NULL,
@@ -261,7 +261,7 @@ CREATE TABLE IF NOT EXISTS Suscripciones (
     id_suscripcion BIGINT PRIMARY KEY AUTO_INCREMENT,
     id_usuario BIGINT NOT NULL,
     id_pago BIGINT NOT NULL,
-    tipo_suscripcion ENUM('Básica', 'Profesional', 'Empresa') DEFAULT 'Básica' NOT NULL,
+    tipo_suscripcion VARCHAR(255) NOT NULL,
     valor DECIMAL(10,2) NOT NULL,
     fecha_fin DATE,
     fecha_inicio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

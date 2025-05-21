@@ -13,9 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const openModalBtns = document.getElementsByClassName('plan-select');
     const planInput = document.getElementById('planInput');
     const precioInput = document.getElementById('precioInput');
-
-    planInput.value = planSummary.textContent.trim();
-    precioInput.value = totalSummary.textContent.trim();
+    const pagarBtn = document.getElementsByClassName('buy-now');
+    const buyConfirmation = document.getElementById('confirmation');
 
     const price = 29.00;
     const tax = price * 0.1;
@@ -39,16 +38,29 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    //Abre el modal se pago
+    //Abre el modal de pago
     for (let btn of openModalBtns) {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             const infoId = this.getAttribute('data-info');
 
+            // Mostrar información en el modal
             planSummary.textContent = infoData[infoId].plan;
-            taxSummary.textContent = "$"+infoData[infoId].tax;
-            totalSummary.textContent = "$"+infoData[infoId].total;
+            taxSummary.textContent = "$" + infoData[infoId].tax;
+            totalSummary.textContent = "$" + infoData[infoId].total;
+
+            // Guardar en los input hidden SIN símbolo de dólar
+            planInput.value = infoData[infoId].plan;
+            precioInput.value = parseFloat(infoData[infoId].total);
 
             paymentForm.style.display = 'block';
+        });
+    }
+
+    // Abre el modal de confirmación de pago
+    for (let pagoBtn of pagarBtn) {
+        pagoBtn.addEventListener('click', function () {
+            paymentForm.style.display = 'none';
+            buyConfirmation.style.display = 'block';
         });
     }
 
@@ -56,6 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             paymentForm.style.display = 'none';
+            buyConfirmation.style.display = 'none';
         }
     });
 

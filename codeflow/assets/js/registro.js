@@ -55,14 +55,19 @@ document.addEventListener("DOMContentLoaded", function () {
     // Maneja las etiquetas de habilidades
     const skillsInput = document.getElementById('freelancer-skills');
     const skillsTagsContainer = document.querySelector('.skills-tags');
+    const hiddenInput = document.getElementById('habilidades-hidden');
+
+    let skills = [];
 
     if (skillsInput) {
         skillsInput.addEventListener('keydown', function (e) {
             if (e.key === 'Enter' || e.key === ',') {
                 e.preventDefault();
                 const skill = this.value.trim().replace(',', '');
-                if (skill) {
+                if (skill && !skills.includes(skill)) {
                     addSkillTag(skill);
+                    skills.push(skill);
+                    updateHiddenInput();
                     this.value = '';
                 }
             }
@@ -82,7 +87,13 @@ document.addEventListener("DOMContentLoaded", function () {
             // Agregar evento para eliminar tag
             tag.querySelector('.remove-skill').addEventListener('click', function () {
                 tag.remove();
+                skills = skills.filter(s => s !== skill);
+                updateHiddenInput();
             });
+        }
+
+        function updateHiddenInput() {
+            hiddenInput.value = skills,join(',');
         }
     }
 })

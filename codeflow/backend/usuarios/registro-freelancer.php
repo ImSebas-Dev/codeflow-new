@@ -13,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $correo = $_POST['correo-freelancer'];
     $contra = password_hash($_POST['password-freelancer'], PASSWORD_BCRYPT);
     $titulo = $_POST['titulo-freelancer'];
-    $habilidades = $_POST['habilidades-freelancer'];
     $telefono = $_POST['phone-freelancer'];
     $genero = $_POST['gender-freelancer'];
 
@@ -49,9 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $id_usuario = $stmt->insert_id;
 
             // Insertar datos en la tabla Freelancers
-            $query_insert_freelancer = "INSERT INTO Freelancers (id_usuario, nombre, apellido, correo, telefono, titulo, habilidades, genero) VALUES (?,?,?,?,?,?,?,?)";
+            $query_insert_freelancer = "INSERT INTO Freelancers (id_usuario, nombre, apellido, correo, telefono, titulo, genero) VALUES (?,?,?,?,?,?,?)";
             $stmt_freelancer = $conn->prepare($query_insert_freelancer);
-            $stmt_freelancer->bind_param("isssssss", $id_usuario, $nombre, $apellido, $correo, $telefono, $titulo, $habilidades, $genero);
+            $stmt_freelancer->bind_param("issssss", $id_usuario, $nombre, $apellido, $correo, $telefono, $titulo, $genero);
 
             if ($stmt_freelancer->execute()) {
                 header("Location: http://localhost/codeflow-new/codeflow/views/public/login.html");

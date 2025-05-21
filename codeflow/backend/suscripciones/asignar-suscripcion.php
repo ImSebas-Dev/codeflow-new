@@ -15,39 +15,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $numeroTarjeta = $_POST['numero-tarjeta'];
     $nombrePropietario = $_POST['nombre-propietario'];
     $correoPropietario = $_POST['correo-propietario'];
-    $monto = $_POST['valor-suscripcion'];
     $cvc = $_POST['cvc'];
-    $fechaExpiracion = $_POST['fecha_expiracion'];
-    $tipo = $_POST['tipo-suscripcion'];
+    $fechaExpiracion = $_POST['fecha-expiracion'];
+    $tipo = $_POST['tipo'];
+    $monto = $_POST['valor'];
 
     // Insertar datos en la tabla Pagos
-    $query_insert = "INSERT INTO Pagos (id_usuario, numero_tarjeta, propietario_tarjeta, propietario_tarjeta, monto, cvc, fecha_expiracion) VALUES (?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($query_insert);
-    $stmt->bind_param("issssss", $id_usuario, $numeroTarjeta, $nombrePropietario, $correoPropietario, $monto, $cvc, $fechaExpiracion);
+    $query_insert_pago = "INSERT INTO Pagos (id_usuario, numero_tarjeta, propietario_tarjeta, correo_tarjeta, monto, cvc, fecha_expiracion) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $stmt_pago = $conn->prepare($query_insert_pago);
+    $stmt_pago->bind_param("issssss", $id_usuario, $numeroTarjeta, $nombrePropietario, $correoPropietario, $monto, $cvc, $fechaExpiracion);
 
-    if ($stmt->execute()) {
-        // Obtener el ID del usuario recién insertado
-        $id_usuario = $stmt->insert_id;
-        $montoSuscripcion = $monto;
+    if ($stmt_pago->execute()) {
+        // Obtener el ID de pago recién insertado
+        $id_pago = $stmt_pago->insert_id;
 
         // Insertar datos en la tabla Suscripciones
-        $query_insert_empresa = "INSERT INTO Suscripciones (id_usuario, tipo_suscripcion, valor) VALUES (?,?,?)";
-        $stmt_empresa = $conn->prepare($query_insert_empresa);
-        $stmt_empresa->bind_param("iss", $id_usuario, $tipo, $montoSuscripcion);
+        $query_insert = "INSERT INTO Suscripciones (id_usuario, id_pago, tipo_suscripcion, valor) VALUES (?,?,?,?)";
+        $stmt = $conn->prepare($query_insert);
+        $stmt->bind_param("iiss", $id_usuario, $id_pago, $tipo, $monto);
 
-        if ($stmt_empresa->execute()) {
-            header("Location: http://localhost/codeflow-new/codeflow/views/public/suscripcion.html");
-            exit();
+        if (!$stmt->execute()) {
+            echo "Error al insertar datos en la tabla Suscripciones: ". $stmt->error;
         } else {
-            echo "Error al insertar datos en la tabla Suscripciones: " . $stmt_empresa->error;
+            exit();
         }
+
     } else {
-        echo "Error al insertar datos en la tabla Pagos: ". $stmt->error;
+        echo "Error al insertar datos en la tabla Pagos: ". $stmt_pago->error;
     }
+    $stmt_pago->close();
     $stmt->close();
     $conn->close();
 } else {
     echo "Método de solicitud no válido";
 }
-
 ?>

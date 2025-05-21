@@ -102,28 +102,10 @@
                 <section class="subscription-section">
                     <div class="subscription-header">
                         <h1><i class="fas fa-crown"></i> Actualizar Suscripción</h1>
-                        <p>Elige el plan que mejor se adapte a tus necesidades como freelancer</p>
+                        <p>Elige el plan que mejor se adapte a tus necesidades como freelancer o empresa</p>
                     </div>
 
                     <div class="plans-container">
-                        <div class="plan-card">
-                            <div class="plan-header">
-                                <h3>Básico</h3>
-                                <div class="plan-price">
-                                    <span class="price">$0</span>
-                                    <span class="period">/mes</span>
-                                </div>
-                            </div>
-                            <ul class="plan-features">
-                                <li><i class="fas fa-check"></i> 5 proyectos activos</li>
-                                <li><i class="fas fa-check"></i> 3 propuestas/mes</li>
-                                <li><i class="fas fa-check"></i> Soporte básico</li>
-                            </ul>
-                            <button class="btn btn-outline plan-select">
-                                Seleccionar
-                            </button>
-                        </div>
-
                         <div class="plan-card recommended">
                             <div class="recommended-badge">Recomendado</div>
                             <div class="plan-header">
@@ -172,8 +154,6 @@
             <h2><i class="fas fa-credit-card"></i> Información de Pago</h2>
 
             <form id="subscriptionForm" method="POST" action="../../backend/suscripciones/asignar-suscripcion.php">
-                <input type="hidden" id="selectedPlan">
-
                 <div class="form-group">
                     <label for="card-number">Número de Tarjeta*</label>
                     <div class="input-with-icon card-input">
@@ -235,7 +215,7 @@
                     <div class="summary-item">
                         <span>Plan seleccionado:</span>
                         <span id="planSummary"></span>
-                        <input type="hidden" id="planInput" name="tipo-suscripcion">
+                        <input type="hidden" id="planInput" name="tipo">
                     </div>
                     <div class="summary-item">
                         <span>Impuestos:</span>
@@ -244,12 +224,12 @@
                     <div class="summary-item total">
                         <span>Total a pagar:</span>
                         <span id="totalSummary"></span>
-                        <input type="hidden" id="precioInput" name="valor-suscripcion">
+                        <input type="hidden" id="precioInput" name="valor">
                     </div>
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary buy-now">
                         <i class="fas fa-lock"></i> Pagar ahora
                     </button>
                 </div>
