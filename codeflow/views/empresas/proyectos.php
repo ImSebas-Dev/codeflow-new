@@ -5,12 +5,12 @@ if (session_status() == PHP_SESSION_NONE) {
 include "../../backend/conexion/conexion.php";
 include "../../backend/proyectos/obtener-proyecto.php";
 
-$id_empresa = $_SESSION['id_empresa'];
-
 if (!isset($_SESSION['id_empresa'])) {
     header("Location: http://localhost/pruebas/views/public/login.html");
     exit();
 }
+
+$id_empresa = $_SESSION['id_empresa'];
 ?>
 
 <!DOCTYPE html>
@@ -72,15 +72,9 @@ if (!isset($_SESSION['id_empresa'])) {
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="fas fa-file-contract"></i>
-                            <span>Contratos</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-chart-line"></i>
-                            <span>Analíticas</span>
+                        <a href="../public/suscripcion.html">
+                            <i class="fas fa-coins"></i>
+                            <span>Suscripciones</span>
                         </a>
                     </li>
                 </ul>

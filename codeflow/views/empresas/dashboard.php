@@ -57,21 +57,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="fas fa-file-contract"></i>
-                            <span>Contratos</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-chart-line"></i>
-                            <span>Analíticas</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-wallet"></i>
-                            <span>Facturación</span>
+                        <a href="../public/suscripcion.html">
+                            <i class="fas fa-coins"></i>
+                            <span>Suscripciones</span>
                         </a>
                     </li>
                 </ul>

@@ -3,10 +3,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const createProjectModal = document.getElementById('createProjectModal');
     const closeModalBtn = document.getElementById('close-modal');
     const projectCards = document.querySelectorAll('.project-card-container');
+
+    // Modal Dropdown
     const userDropdown = document.getElementById('user-dropdown');
     const userModal = document.getElementById('userModal');
 
-    // Modal Dropdown
     userDropdown.addEventListener('click', (e) => {
         e.stopPropagation();
         userModal.style.display = 'block';

@@ -1,6 +1,8 @@
 <?php
-session_start();
-include 'conexion.php'; // Aquí conectas a tu BD
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+include '../conexion/conexion.php'; // Aquí conectas a tu BD
 
 // Asegúrate de que el freelancer esté logueado
 if (!isset($_SESSION['freelancer_id'])) {
@@ -10,7 +12,7 @@ if (!isset($_SESSION['freelancer_id'])) {
 $freelancer_id = $_SESSION['freelancer_id'];
 
 // Recoger los datos del formulario
-$titulo = trim($_POST['titulo']);
+$titulo = trim($_POST['detailProjectTitle']);
 $descripcion = trim($_POST['descripcion']);
 $fecha_entrega = $_POST['fecha_entrega'];
 

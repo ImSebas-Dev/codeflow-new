@@ -45,9 +45,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             //Redirigir según el rol
             if ($rol == 1) {
-                header("Location: http://localhost/pruebas/views/freelancers/dashboard.php");
+                header("Location: http://localhost/codeflow-new/codeflow/views/freelancers/dashboard.php");
             } elseif ($rol == 2) {
-                header("Location: http://localhost/pruebas/views/empresas/dashboard.php");
+                header("Location: http://localhost/codeflow-new/codeflow/views/empresas/dashboard.php");
             } else {
                 echo "Rol no válido";
             }

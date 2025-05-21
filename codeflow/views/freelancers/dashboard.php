@@ -47,41 +47,33 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="proyectos.php">
                             <i class="fas fa-briefcase"></i>
                             <span>Proyectos</span>
-                            <span class="menu-badge">5</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-diagram-project"></i>
+                            <span>Mis Proyectos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tareas.php">
+                            <i class="fas fa-tasks"></i>
+                            <span>Tareas</span>
                         </a>
                     </li>
                     <li>
                         <a href="#">
                             <i class="fas fa-envelope"></i>
                             <span>Mensajes</span>
-                            <span class="menu-badge">3</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="fas fa-file-invoice-dollar"></i>
-                            <span>Facturación</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-chart-line"></i>
-                            <span>Estadísticas</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-user-tie"></i>
-                            <span>Mi Perfil</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-cog"></i>
-                            <span>Configuración</span>
+                        <a href="../public/suscripcion.html">
+                            <i class="fas fa-coins"></i>
+                            <span>Suscripciones</span>
                         </a>
                     </li>
                 </ul>
@@ -487,6 +479,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-    <script src="../../assets/js/dashboard.js"></script>
+    <script src="../../assets/js/dashboard.js" defer></script>
 </body>
 </html>

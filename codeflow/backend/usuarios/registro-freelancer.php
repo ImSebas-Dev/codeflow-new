@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "El correo ya está registrado";
     } else {
         // Obtener el rol de freelancer
-        $query_rol = "SELECT id_rol FROM Roles WHERE rol = 'freelancer'";
+        $query_rol = "SELECT id_rol FROM Roles WHERE nombre = 'freelancer'";
         $result_rol = mysqli_query($conn, $query_rol);
         $rol = mysqli_fetch_assoc($result_rol);
 
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Insertar datos en la tabla Usuarios
         $query_insert = "INSERT INTO Usuarios (correo, contra, id_rol) VALUES (?,?,?)";
         $stmt = $conn->prepare($query_insert);
-        $stmt->bind_param("ssi", $nombre, $apellido, $correo, $contra, $id_rol);
+        $stmt->bind_param("ssi", $correo, $contra, $id_rol);
 
         if ($stmt->execute()) {
             // Obtener el ID del usuario recién insertado
@@ -54,7 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt_freelancer->bind_param("isssssss", $id_usuario, $nombre, $apellido, $correo, $telefono, $titulo, $habilidades, $genero);
 
             if ($stmt_freelancer->execute()) {
-                echo "Registro exitoso";
+                header("Location: http://localhost/codeflow-new/codeflow/views/public/login.html");
+                exit();
             } else {
                 echo "Error al insertar datos en la tabla Freelancers: " . $stmt_freelancer->error;
             }

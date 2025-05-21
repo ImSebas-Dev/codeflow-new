@@ -3,7 +3,7 @@ include '../conexion/conexion.php';
 session_start();
 
 if (!isset($_SESSION['id_usuario'])) {
-    header("Location: http://localhost/pruebas/views/public/login.html");
+    header("Location: http://localhost/codeflow-new/codeflow/views/public/login.html");
     exit();
 }
 
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("isd", $id_usuario, $tipo, $valor);
 
     if ($stmt->execute()) {
-        header("Location: http://localhost/pruebas/views/public/suscripcion.html");
+        header("Location: http://localhost/codeflow-new/codeflow/views/public/suscripcion.html");
         exit();
     } else {
         echo "Error al insertar los datos: " . $stmt->error;

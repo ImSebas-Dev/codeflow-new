@@ -3,7 +3,7 @@ include "../conexion/conexion.php";
 session_start();
 
 if (!isset($_SESSION['id_empresa'])) {
-    header("Location: http://localhost/pruebas/views/public/login.html");
+    header("Location: http://localhost/codeflow-new/codeflow/views/public/login.html");
     exit();
 }
 
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("iissss", $id_empresa, $id_freelancer, $titulo, $descripcion, $presupuesto, $fecha_limite);
 
     if ($stmt->execute()) {
-        header("Location: http://localhost/pruebas/views/empresas/proyectos.php");
+        header("Location: http://localhost/codeflow-new/codeflow/views/empresas/proyectos.php");
         exit();
     } else {
         echo "Error al insertar el proyecto: " . $stmt->error;

@@ -106,13 +106,13 @@ CREATE TABLE IF NOT EXISTS Historial_Proyectos (
     FOREIGN KEY (id_freelancer) REFERENCES Freelancers(id_freelancer) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS Proyectos_Freelancer {
+CREATE TABLE IF NOT EXISTS Proyectos_Freelancer (
     id_proyecto_freelancer BIGINT PRIMARY KEY AUTO_INCREMENT,
     id_proyecto BIGINT NOT NULL,
     id_freelancer BIGINT NOT NULL,
     FOREIGN KEY (id_proyecto) REFERENCES Proyectos(id_proyecto) ON DELETE CASCADE,
     FOREIGN KEY (id_freelancer) REFERENCES Freelancers(id_freelancer) ON DELETE CASCADE
-} ENGINE = InnoDB;
+) ENGINE = InnoDB;
 
 -- BLOQUE 4: POSTULACIONES
 
@@ -264,7 +264,7 @@ CREATE TABLE IF NOT EXISTS Suscripciones (
     fecha_fin DATE,
     fecha_inicio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
-)
+) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS Tokens_Recuperacion (
     id_token BIGINT PRIMARY KEY AUTO_INCREMENT,

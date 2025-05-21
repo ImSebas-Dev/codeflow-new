@@ -1,3 +1,18 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+include "../../backend/conexion/conexion.php";
+include "../../backend/proyectos/obtener-proyecto-freelancer.php";
+
+if (!isset($_SESSION['id_freelancer'])) {
+    header("Location: http://localhost/codeflow-new/codeflow/views/public/login.html");
+    exit();
+}
+
+$proyectos = obtenerProyectosAbiertos($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -49,37 +64,36 @@
                         <a href="dashboard.php">
                             <i class="fas fa-home"></i>
                             <span>Inicio</span>
+                            <span class="menu-badge">3</span>
                         </a>
                     </li>
                     <li class="active">
                         <a href="proyectos.php">
                             <i class="fas fa-briefcase"></i>
                             <span>Proyectos</span>
-                            <span class="menu-badge">3</span>
+                        </a>
+                    </li>
+                    <a href="proyectos.php">
+                            <i class="fas fa-diagram-project"></i>
+                            <span>Mis Proyectos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tareas.php">
+                            <i class="fas fa-tasks"></i>
+                            <span>Tareas</span>
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <i class="fas fa-building"></i>
-                            <span>Clientes</span>
+                            <i class="fas fa-envelope"></i>
+                            <span>Mensajes</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="fas fa-file-contract"></i>
-                            <span>Contratos</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-chart-line"></i>
-                            <span>Analíticas</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-wallet"></i>
-                            <span>Pagos</span>
+                        <a href="../public/suscripcion.html">
+                            <i class="fas fa-coins"></i>
+                            <span>Suscripciones</span>
                         </a>
                     </li>
                 </ul>
@@ -109,7 +123,7 @@
                         <i class="fas fa-envelope"></i>
                         <span class="message-badge">1</span>
                     </button>
-                    <div class="user-dropdown">
+                    <div class="user-dropdown" id="user-dropdown">
                         <div class="user-avatar">
                             <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Usuario">
                         </div>
@@ -122,7 +136,7 @@
             <div class="dashboard-content">
                 <!-- Filtros y acciones -->
                 <section class="projects-header">
-                    <h1>Mis Proyectos</h1>
+                    <h1>Proyectos</h1>
 
                     <div class="projects-controls">
                         <div class="projects-filters">
@@ -180,199 +194,65 @@
                     <!-- Vista en cuadrícula -->
                     <div class="projects-grid">
                         <!-- Proyecto 1 -->
-                        <div class="project-card-container highlight">
-                            <div class="project-card-header">
-                                <h3>Desarrollo App Móvil</h3>
-                                <span class="project-status in-progress">En progreso</span>
-                                <span class="highlight-badge">Prioritario</span>
-                            </div>
+                        <?php foreach ($proyectosAbiertos as $proyecto): ?>
+                            <div class="project-card-container highlight">
+                                <div class="project-card-header">
+                                    <h3><?php echo htmlspecialchars($proyecto['titulo']) ?></h3>
+                                    <span class="project-status <?php echo strtolower(str_replace(' ', '-', $estado))?>">
+                                        <?php echo $estado; ?>
+                                    </span>
+                                </div>
 
-                            <div class="project-card-body">
-                                <div class="project-client">
-                                    <img src="https://ui-avatars.com/api/?name=Tech+Solutions&background=6e3aed&color=fff"
-                                        alt="Tech Solutions">
-                                    <div>
-                                        <h3>Tech Solutions</h3>
-                                        <p>Empresa • 4.8 ★</p>
+                                <div class="project-card-body">
+                                    <div class="project-client">
+                                        <img src="https://ui-avatars.com/api/?name=Tech+Solutions&background=6e3aed&color=fff"
+                                            alt="Tech Solutions">
+                                        <div>
+                                            <h3><?php echo htmlspecialchars($proyecto['nombre_empresa']) ?></h3>
+                                            <p>Empresa • 4.8 ★</p>
+                                        </div>
+                                    </div>
+
+                                    <p class="project-description"><?php echo htmlspecialchars($proyecto['descripcion']) ?></p>
+
+                                    <div class="project-meta">
+                                        <div class="meta-item">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            <span>Inicio: <?php echo htmlspecialchars($proyecto['fecha_creacion']) ?></span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-clock"></i>
+                                            <span>Límite: <?php echo htmlspecialchars($proyecto['fecha_finalizacion']) ?></span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-wallet"></i>
+                                            <span>Presupuesto: <?php echo htmlspecialchars($proyecto['monto']) ?></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="project-progress">
+                                        <div class="progress-info">
+                                            <span>Progreso</span>
+                                            <span>0%</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 0%"></div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <p class="project-description">Desarrollo de aplicación de comercio electrónico para iOS
-                                    y Android con React Native. Se requiere integración con API de pagos y sistema de
-                                    recomendaciones.</p>
-
-                                <div class="project-meta">
-                                    <div class="meta-item">
-                                        <i class="fas fa-calendar-alt"></i>
-                                        <span>Inicio: 15 Jun 2023</span>
+                                <div class="project-card-footer">
+                                    <div class="project-actions">
+                                        <button class="btn btn-outline btn-small">
+                                            <i class="fas fa-comments"></i> Chat
+                                        </button>
+                                        <button class="btn btn-primary btn-small">
+                                            <i class="fas fa-tasks"></i> Postularse
+                                        </button>
                                     </div>
-                                    <div class="meta-item">
-                                        <i class="fas fa-clock"></i>
-                                        <span>Límite: 15 Ago 2023</span>
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="fas fa-wallet"></i>
-                                        <span>Presupuesto: $2,800</span>
-                                    </div>
-                                </div>
-
-                                <div class="project-progress">
-                                    <div class="progress-info">
-                                        <span>Progreso</span>
-                                        <span>65%</span>
-                                    </div>
-                                    <div class="progress-bar">
-                                        <div class="progress-fill" style="width: 65%"></div>
-                                    </div>
-                                </div>
-
-                                <div class="project-skills">
-                                    <span>React Native</span>
-                                    <span>Firebase</span>
-                                    <span>Node.js</span>
-                                </div>
-                            </div>
-
-                            <div class="project-card-footer">
-                                <div class="project-actions">
-                                    <button class="btn btn-outline btn-small">
-                                        <i class="fas fa-comments"></i> Chat
-                                    </button>
-                                    <button class="btn btn-primary btn-small">
-                                        <i class="fas fa-tasks"></i> Tareas
-                                    </button>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- Proyecto 2 -->
-                        <div class="project-card-container">
-                            <div class="project-card-header">
-                                <h3>API Sistema de Pagos</h3>
-                                <span class="project-status active">Activo</span>
-                            </div>
-
-                            <div class="project-card-body">
-                                <div class="project-client">
-                                    <img src="https://ui-avatars.com/api/?name=Fintech+Inc&background=1a1a2e&color=fff"
-                                        alt="Fintech Inc">
-                                    <div>
-                                        <h3>Fintech Inc</h3>
-                                        <p>Startup • 4.5 ★</p>
-                                    </div>
-                                </div>
-
-                                <p class="project-description">Desarrollo de API segura para procesamiento de pagos con
-                                    Node.js y Stripe. Implementación de webhooks y sistema de notificaciones.</p>
-
-                                <div class="project-meta">
-                                    <div class="meta-item">
-                                        <i class="fas fa-calendar-alt"></i>
-                                        <span>Inicio: 1 Jul 2023</span>
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="fas fa-clock"></i>
-                                        <span>Límite: 30 Sep 2023</span>
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="fas fa-wallet"></i>
-                                        <span>Presupuesto: $3,500</span>
-                                    </div>
-                                </div>
-
-                                <div class="project-progress">
-                                    <div class="progress-info">
-                                        <span>Progreso</span>
-                                        <span>25%</span>
-                                    </div>
-                                    <div class="progress-bar">
-                                        <div class="progress-fill" style="width: 25%"></div>
-                                    </div>
-                                </div>
-
-                                <div class="project-skills">
-                                    <span>Node.js</span>
-                                    <span>Stripe API</span>
-                                    <span>MongoDB</span>
-                                </div>
-                            </div>
-
-                            <div class="project-card-footer">
-                                <div class="project-actions">
-                                    <button class="btn btn-outline btn-small">
-                                        <i class="fas fa-comments"></i> Chat
-                                    </button>
-                                    <button class="btn btn-primary btn-small" id="btn-task">
-                                        <i class="fas fa-tasks"></i> Tareas
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Proyecto 3 -->
-                        <div class="project-card-container">
-                            <div class="project-card-header">
-                                <h3>Rediseño Sitio Web</h3>
-                                <span class="project-status completed">Completado</span>
-                            </div>
-
-                            <div class="project-card-body">
-                                <div class="project-client">
-                                    <img src="https://ui-avatars.com/api/?name=Creative+Agency&background=4a25a8&color=fff"
-                                        alt="Creative Agency">
-                                    <div>
-                                        <h3>Creative Agency</h3>
-                                        <p>Agencia • 4.9 ★</p>
-                                    </div>
-                                </div>
-
-                                <p class="project-description">Rediseño completo del sitio web corporativo con WordPress
-                                    y WooCommerce. Optimización de velocidad y diseño responsive.</p>
-
-                                <div class="project-meta">
-                                    <div class="meta-item">
-                                        <i class="fas fa-calendar-alt"></i>
-                                        <span>Inicio: 1 May 2023</span>
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="fas fa-clock"></i>
-                                        <span>Completado: 10 Jun 2023</span>
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="fas fa-wallet"></i>
-                                        <span>Ganancia: $1,200</span>
-                                    </div>
-                                </div>
-
-                                <div class="project-rating">
-                                    <div class="stars">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                    <span>4.7/5.0</span>
-                                </div>
-
-                                <div class="project-skills">
-                                    <span>WordPress</span>
-                                    <span>WooCommerce</span>
-                                    <span>PHP</span>
-                                </div>
-                            </div>
-
-                            <div class="project-card-footer">
-                                <div class="project-actions">
-                                    <button class="btn btn-outline btn-small">
-                                        <i class="fas fa-eye"></i> Ver
-                                    </button>
-                                    <button class="btn btn-primary btn-small">
-                                        <i class="fas fa-redo"></i> Repetir
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        <?php endforeach;?>
                     </div>
 
                     <!-- Paginación -->
@@ -391,8 +271,58 @@
             </div>
         </main>
     </div>
+
+    <!-- Modal User Dropdown -->
+    <div class="modal" id="userModal" aria-hidden="true" style="display: none;">
+        <div class="modal-overlay" tabindex="-1" data-close-user-modal>
+            <div class="modal-container user-modal" role="dialog" aria-modal="true">
+                <div class="user-modal-header">
+                    <div class="user-info">
+                        <div class="user-avatar large">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Usuario">
+                        </div>
+                        <div>
+                            <h3>Carlos Méndez</h3>
+                            <p>carlos@example.com</p>
+                            <span class="badge-plan">Plan Empresa</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="user-modal-body">
+                    <ul class="user-options">
+                        <li class="option-item">
+                            <a href="#" class="option-link">
+                                <i class="fas fa-user-edit"></i>
+                                <span>Editar perfil</span>
+                            </a>
+                        </li>
+                        <li class="option-item">
+                            <a href="#" class="option-link">
+                                <i class="fas fa-cog"></i>
+                                <span>Configuración</span>
+                            </a>
+                        </li>
+                        <li class="option-divider"></li>
+                        <li class="option-item">
+                            <a href="../public/login.html" class="option-link">
+                                <i class="fas fa-exchange-alt"></i>
+                                <span>Cambiar de cuenta</span>
+                            </a>
+                        </li>
+                        <li class="option-item">
+                            <a href="../public/index.html" class="option-link logout">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Cerrar sesión</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
     
 </body>
-<script src="../../assets/js/proyectos.js"></script>
+<script src="../../assets/js/proyectos.js" defer></script>
 
 </html>

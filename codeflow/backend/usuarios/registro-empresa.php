@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt_empresa->bind_param("issss", $id_usuario, $nombre_empresa, $correo_corporativo, $phone_empresa, $industria);
 
             if ($stmt_empresa->execute()) {
-                header("Location: http://localhost/pruebas/views/public/login.html");
+                header("Location: http://localhost/codeflow-new/codeflow/views/public/login.html");
                 exit();
             } else {
                 echo "Error al insertar datos en la tabla Empresas: " . $stmt_empresa->error;
