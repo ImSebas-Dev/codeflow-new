@@ -19,7 +19,7 @@ function obtenerProyectosAbiertos($conn) {
 function obtenerProyectosFreelancer($conn) {
     $id_freelancer = $_SESSION['id_freelancer']; // Obtener el ID del freelancer logueado
 
-    $sql_freelancer = "SELECT DISTINCT pr.*,
+    $sql_freelancer = "SELECT DISTINCT pf.id_proyecto_freelancer, pr.*,
                             e.nombre_empresa, 
                             p.estado AS estado_postulacion
                         FROM Proyectos_Freelancer pf

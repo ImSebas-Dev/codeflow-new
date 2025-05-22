@@ -143,8 +143,8 @@ if (!isset($_SESSION['id_freelancer'])) {
                         <?php foreach ($tareas as $tarea) : ?>
                             <div class="project-header collapsible-header" onclick="toggleCollapse(this)">
                                 <div class="project-title">
-                                    <h1>Desarrollo de App Móvil</h1>
-                                    <span class="project-status in-progress">En progreso</span>
+                                    <h1><?php echo htmlspecialchars($tarea['titulo_proyecto']) ?></h1>
+                                    <span class="project-status in-progress"><?php echo htmlspecialchars($tarea['estado']) ?></span>
                                 </div>
                                 
                                 <div class="project-meta">

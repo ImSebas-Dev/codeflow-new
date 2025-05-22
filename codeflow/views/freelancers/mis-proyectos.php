@@ -236,7 +236,7 @@ if (!isset($_SESSION['id_freelancer'])) {
 
                                 <div class="project-card-footer">
                                     <div class="project-actions">
-                                        <input type="hidden" name="id-proyecto" id="value-id-proyecto" value="<?= $proyecto['id_proyecto'] ?>">
+                                        <input type="hidden" name="id-proyecto" id="value-id-proyecto" value="<?= $proyecto['id_proyecto_freelancer'] ?>">
                                         <button type="submit" class="btn btn-primary btn-small task-modal-open">
                                             <i class="fas fa-tasks"></i> Tareas
                                         </button>
@@ -345,7 +345,7 @@ if (!isset($_SESSION['id_freelancer'])) {
                                 <label for="taskRepository">Repositorio</label>
                                 <div class="input-with-icon">
                                     <i class="fab fa-github"></i>
-                                    <input type="number" name="task-repository" id="taskRepository" placeholder="Ej: https://github.com/ImSebas-Dev/codeflow-new"
+                                    <input type="text" name="task-repository" id="taskRepository" placeholder="Ej: https://github.com/ImSebas-Dev/codeflow-new"
                                         required>
                                 </div>
                             </div>
@@ -361,7 +361,7 @@ if (!isset($_SESSION['id_freelancer'])) {
                     </div>
 
                     <div class="modal-footer">
-                        <input type="hidden" name="id-proyecto" id="input-id-proyecto">
+                        <input type="hidden" name="id-proyecto-freelancer" id="input-id-proyecto">
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-rocket"></i> Crear Tarea
                         </button>

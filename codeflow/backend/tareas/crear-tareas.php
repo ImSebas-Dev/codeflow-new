@@ -9,10 +9,9 @@ if (!isset($_SESSION['id_freelancer'])) {
     die("Acceso denegado.");
 }
 
-$id_freelancer = $_SESSION['id_freelancer'];
-
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $id_proyecto = $_POST['id-proyecto'];
+    $id_freelancer = $_SESSION['id_freelancer'];
+    $id_proyecto_freelancer = $_POST['id-proyecto-freelancer'];
     $titulo = $_POST['task-title'];
     $descripcion = $_POST['task-description'];
     $reposirotio = $_POST['task-repository'];
@@ -24,12 +23,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Preparar la consulta SQL para insertar la tarea
-    $sql = "INSERT INTO Tareas (id_freelancer, id_proyecto, titulo, descripcion, repositorio, fecha_limite) VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO Tareas (id_proyecto_freelancer, titulo, descripcion, repositorio, fecha_entrega) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iissss", $id_freelancer, $id_proyecto, $titulo, $descripcion, $reposirotio, $fecha_limite);
+    $stmt->bind_param("issss", $id_proyecto_freelancer, $titulo, $descripcion, $reposirotio, $fecha_limite);
 
     if ($stmt->execute()) {
-        header("Location: ../views/freelancers/tareas.php");
+        header("Location: http://localhost/codeflow-new/codeflow/views/freelancers/mis-proyectos.php");
         exit();
     } else {
         die("Error al insertar la tarea: " . $stmt->error);

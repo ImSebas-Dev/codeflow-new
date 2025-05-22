@@ -6,7 +6,9 @@ if (session_status() == PHP_SESSION_NONE) {
 function obtenerTareas($conn) {
     $id_freelancer = $_SESSION['id_freelancer']; // Obtener el ID del freelancer logueado
 
-    $sql = "SELECT DISTINCT t.*, c.*, f.*, p.*,
+    $sql = "SELECT DISTINCT t.*, c.*, 
+                p.titulo AS titulo_proyecto,
+                p.estado,
                 e.nombre_empresa
         FROM Tareas t
         INNER JOIN Proyectos_Freelancer pf ON t.id_proyecto_freelancer = pf.id_proyecto_freelancer
