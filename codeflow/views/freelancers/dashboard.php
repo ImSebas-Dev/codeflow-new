@@ -1,3 +1,16 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+include '../../backend/conexion/conexion.php';
+include "../../backend/usuarios/obtener-usuario.php";
+
+if (!isset($_SESSION['id_freelancer'])) {
+    header("Location: http://localhost/pruebas/views/public/login.html");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -28,8 +41,8 @@
                     <span class="online-status"></span>
                 </div>
                 <div class="freelancer-info">
-                    <h3>Carlos Méndez</h3>
-                    <p>Desarrollador Fullstack</p>
+                    <h3><?php echo htmlspecialchars($nombre_usuario) ?></h3>
+                    <p><?php echo htmlspecialchars($datos['titulo']) ?></p>
                     <div class="freelancer-rating">
                         <i class="fas fa-star"></i>
                         <span>4.8</span>
@@ -41,7 +54,7 @@
             <nav class="sidebar-nav">
                 <ul>
                     <li class="active">
-                        <a href="#">
+                        <a href="dashboard.php">
                             <i class="fas fa-home"></i>
                             <span>Inicio</span>
                         </a>
@@ -53,7 +66,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="mis-proyectos.php">
                             <i class="fas fa-diagram-project"></i>
                             <span>Mis Proyectos</span>
                         </a>
@@ -71,7 +84,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="../public/suscripcion.php">
+                        <a href="suscripcion.php">
                             <i class="fas fa-coins"></i>
                             <span>Suscripciones</span>
                         </a>
@@ -437,9 +450,9 @@
                                 <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Usuario">
                             </div>
                             <div>
-                                <h3>Carlos Méndez</h3>
-                                <p>carlos@example.com</p>
-                                <span class="badge-plan">Plan Empresa</span>
+                                <h3><?php echo htmlspecialchars($nombre_usuario) ?></h3>
+                                <p><?php echo htmlspecialchars($datos['correo']) ?></p>
+                                <span class="badge-plan">Plan <?php echo htmlspecialchars($datos['tipo_suscripcion']) ?></span>
                             </div>
                         </div>
                     </div>

@@ -3572,3 +3572,345 @@ body {
         width: 95%;
     }
 }
+
+/* Modal de Postulacion */
+.postulation-form-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--gray-color);
+    border-radius: 0.75rem;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+}
+
+.postulation-form-container h2 {
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.name-input {
+    position: relative;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1rem 0;
+}
+
+.checkbox-group input {
+    width: 1.1rem;
+    height: 1.1rem;
+}
+
+.checkbox-group label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+.checkbox-group a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.payment-summary {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.summary-item.total {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-weight: 600;
+    color: white;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+/* Estilos específicos para la sección de postulaciones */
+.section-controls {
+    background-color: var(--gray-color);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.controls-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-group label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.custom-select {
+    padding: 0.5rem 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.5rem;
+    color: var(--light-color);
+    font-size: 0.9rem;
+    cursor: pointer;
+    min-width: 180px;
+}
+
+.custom-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(110, 58, 237, 0.3);
+}
+
+.applications-section {
+    background-color: var(--gray-color);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.applications-count {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.applications-count strong {
+    color: var(--light-color);
+}
+
+.applications-list {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.application-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.application-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.application-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.freelancer-info-postulacion {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.freelancer-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.freelancer-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.freelancer-details h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+}
+
+.freelancer-details p {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0.5rem;
+}
+
+.freelancer-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    color: #ffc107;
+}
+
+.freelancer-rating span:last-child {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.application-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.project-name {
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.application-date {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.application-status {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-weight: 500;
+}
+
+.application-status.abierto {
+    background-color: rgba(13, 110, 253, 0.2);
+    color: #0d6efd;
+}
+
+.application-body {
+    padding: 1.5rem;
+}
+
+.application-bio {
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.application-actions {
+    display: flex;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #bb2d3b;
+}
+
+.btn-secondary {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--light-color);
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.page-info {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .application-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+    
+    .application-meta {
+        align-items: flex-start;
+    }
+    
+    .application-actions {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 768px) {
+    .controls-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .filter-group {
+        width: 100%;
+    }
+    
+    .custom-select {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .freelancer-info-postulacion {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .freelancer-details {
+        margin-left: 0;
+    }
+    
+    .application-actions .btn {
+        flex: 1;
+        min-width: 100%;
+    }
+}

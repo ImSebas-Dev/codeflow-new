@@ -1,17 +1,32 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const projectDropdown = document.getElementById('create-project-btn');
+    const projectDropdown = document.getElementsByClassName('create-project-btn');
     const createProjectModal = document.getElementById('createProjectModal');
-    const closeModalBtn = document.getElementById('close-modal');
+    const closeModalBtn = document.getElementsByClassName('modal-close');
     const projectCards = document.querySelectorAll('.project-card-container');
-
-    // Modal Dropdown
     const userDropdown = document.getElementById('user-dropdown');
     const userModal = document.getElementById('userModal');
+    const descriptionTextarea = document.getElementsByClassName('projectDescription');
+    const descCounter = document.getElementById('descCounter');
 
+    // Abre el user modal
     userDropdown.addEventListener('click', (e) => {
         e.stopPropagation();
         userModal.style.display = 'block';
     });
+
+    // Abrir modal con botón de crear proyecto
+    for (let btnProject of projectDropdown) {
+        btnProject.addEventListener('click', function () {
+            createProjectModal.style.display = 'block';
+        });    
+    }
+
+    // Cerrar modal con botón de cerrar
+    for (let closeBtn of closeModalBtn) {
+        closeBtn.addEventListener('click', () => {
+            createProjectModal.style.display = 'none';
+        });
+    }
 
     // Cerrar al hacer clic fuera
     document.addEventListener('click', (e) => {
@@ -40,31 +55,19 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Abrir modal con botón de crear proyecto
-    projectDropdown.addEventListener('click', (e) => {
-        e.stopPropagation();
-        createProjectModal.style.display = 'block';
-    });
-
-    // Cerrar modal con botón de cerrar
-    closeModalBtn.addEventListener('click', () => {
-        createProjectModal.style.display = 'none';
-    });
-
     // Contador de caracteres para descripción
-    const descriptionTextarea = document.getElementById('projectDescription');
-    const descCounter = document.getElementById('descCounter');
+    for (let textarea of descriptionTextarea) {
+        textarea.addEventListener('input', function () {
+            const currentLength = textarea.value.length;
+            descCounter.textContent = currentLength;
 
-    descriptionTextarea.addEventListener('input', () => {
-        const currentLength = descriptionTextarea.value.length;
-        descCounter.textContent = currentLength;
+            if (currentLength > 1000) {
+                textarea.value = textarea.value.substring(0, 1000);
+                descCounter.textContent = 1000;
+            }
 
-        if (currentLength > 1000) {
-            descriptionTextarea.value = descriptionTextarea.value.substring(0, 1000);
-            descCounter.textContent = 1000;
-        }
-    });
-
-    // Inicializar contador de descripción
-    descCounter.textContent = descriptionTextarea.value.length;
+            // Inicializar contador de descripción
+            descCounter.textContent = descriptionTextarea.value.length;
+        })
+    }
 })

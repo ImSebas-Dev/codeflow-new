@@ -33,22 +33,27 @@ if (!isset($_SESSION['id_usuario'])) {
                     <span class="logo-text">CodeFlow</span>
                 </div>
             </div>
-
-            <div class="company-profile">
-                <div class="company-avatar">
-                    <img src="https://ui-avatars.com/api/?name=Tech+Solutions&background=6e3aed&color=fff"
-                        alt="Tech Solutions">
+            
+            <div class="freelancer-profile">
+                <div class="freelancer-avatar">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Carlos Méndez">
+                    <span class="online-status"></span>
                 </div>
-                <div class="company-info">
+                <div class="freelancer-info">
                     <h3><?php echo htmlspecialchars($nombre_usuario) ?></h3>
-                    <p>Plan <?php echo htmlspecialchars($datos['tipo_suscripcion']) ?></p>
+                    <p><?php echo htmlspecialchars($datos['titulo']) ?></p>
+                    <div class="freelancer-rating">
+                        <i class="fas fa-star"></i>
+                        <span>4.8</span>
+                        <span>(85 proyectos)</span>
+                    </div>
                 </div>
             </div>
-
+            
             <nav class="sidebar-nav">
                 <ul>
                     <li class="active">
-                        <a href="#">
+                        <a href="dashboard.php">
                             <i class="fas fa-home"></i>
                             <span>Inicio</span>
                         </a>
@@ -60,27 +65,27 @@ if (!isset($_SESSION['id_usuario'])) {
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="fas fa-users"></i>
-                            <span>Freelancers</span>
+                        <a href="mis-proyectos.php">
+                            <i class="fas fa-diagram-project"></i>
+                            <span>Mis Proyectos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tareas.php">
+                            <i class="fas fa-tasks"></i>
+                            <span>Tareas</span>
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <i class="fas fa-file-contract"></i>
-                            <span>Contratos</span>
+                            <i class="fas fa-envelope"></i>
+                            <span>Mensajes</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="fas fa-chart-line"></i>
-                            <span>Analíticas</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-wallet"></i>
-                            <span>Facturación</span>
+                        <a href="suscripcion.php">
+                            <i class="fas fa-coins"></i>
+                            <span>Suscripciones</span>
                         </a>
                     </li>
                 </ul>
@@ -105,7 +110,7 @@ if (!isset($_SESSION['id_usuario'])) {
                     </button>
                     <div class="user-dropdown" id="user-dropdown">
                         <div class="user-avatar">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Usuario">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Usuario">
                         </div>
                         <i class="fas fa-chevron-down"></i>
                     </div>
@@ -203,14 +208,16 @@ if (!isset($_SESSION['id_usuario'])) {
                 <div class="form-group">
                     <label for="cardName">Nombre en la Tarjeta*</label>
                     <div class="input-text">
-                        <input type="text" id="cardName" name="nombre-propietario" placeholder="Como aparece en la tarjeta" required>
+                        <input type="text" id="cardName" name="nombre-propietario" placeholder="Como aparece en la tarjeta" 
+                                value="<?php echo htmlspecialchars($nombre_usuario) ?>" required>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="billingEmail">Correo para facturación*</label>
                     <div class="input-text">
-                        <input type="email" id="billingEmail" name="correo-propietario" placeholder="tucorreo@example.com" required>
+                        <input type="email" id="billingEmail" name="correo-propietario" placeholder="tucorreo@example.com" 
+                                value="<?php echo htmlspecialchars($datos['correo']) ?>" required>
                     </div>
                 </div>
 
@@ -289,9 +296,9 @@ if (!isset($_SESSION['id_usuario'])) {
                                 <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Usuario">
                             </div>
                             <div>
-                                <h3>Carlos Méndez</h3>
-                                <p>carlos@example.com</p>
-                                <span class="badge-plan">Plan Empresa</span>
+                                <h3><?php echo htmlspecialchars($nombre_usuario) ?></h3>
+                                <p><?php echo htmlspecialchars($datos['correo']) ?></p>
+                                <span class="badge-plan">Plan <?php echo htmlspecialchars($datos['tipo_suscripcion']) ?></span>
                             </div>
                         </div>
                     </div>

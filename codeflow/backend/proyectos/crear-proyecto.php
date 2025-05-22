@@ -9,8 +9,6 @@ if (!isset($_SESSION['id_empresa'])) {
 
 $id_empresa = $_SESSION['id_empresa'];
 
-$id_freelancer = null; // Si aún no se ha seleccionado un freelancer, se establece como null
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $titulo = $_POST['title-project'];
     $descripcion = $_POST['description-project'];
@@ -29,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insertar el proyecto en la base de datos
-    $sql = "INSERT INTO Proyectos (id_empresa, id_freelancer, titulo, descripcion, monto, fecha_finalizacion) VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO Proyectos (id_empresa, titulo, descripcion, monto, fecha_finalizacion) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
 
     if ($stmt == false) {
@@ -37,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    $stmt->bind_param("iissss", $id_empresa, $id_freelancer, $titulo, $descripcion, $presupuesto, $fecha_limite);
+    $stmt->bind_param("issss", $id_empresa, $titulo, $descripcion, $presupuesto, $fecha_limite);
 
     if ($stmt->execute()) {
         header("Location: http://localhost/codeflow-new/codeflow/views/empresas/proyectos.php");

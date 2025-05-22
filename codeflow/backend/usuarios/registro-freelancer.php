@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $correo = $_POST['correo-freelancer'];
     $contra = password_hash($_POST['password-freelancer'], PASSWORD_BCRYPT);
     $titulo = $_POST['titulo-freelancer'];
+    $descripcion = $_POST['bio-freelancer'];
     $telefono = $_POST['phone-freelancer'];
     $genero = $_POST['gender-freelancer'];
 
@@ -47,9 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $id_usuario = $conn->insert_id;
 
             // Insertar datos en la tabla Freelancers
-            $query_insert_freelancer = "INSERT INTO Freelancers (id_usuario, nombre, correo, telefono, titulo, genero) VALUES (?,?,?,?,?,?)";
+            $query_insert_freelancer = "INSERT INTO Freelancers (id_usuario, nombre, correo, telefono, titulo, descripcion_freelancer, genero) VALUES (?,?,?,?,?,?,?)";
             $stmt_freelancer = $conn->prepare($query_insert_freelancer);
-            $stmt_freelancer->bind_param("isssss", $id_usuario, $nombre, $correo, $telefono, $titulo, $genero);
+            $stmt_freelancer->bind_param("issssss", $id_usuario, $nombre, $correo, $telefono, $titulo, $descripcion, $genero);
 
             // Insertar datos en la tabla Suscripciones
             $query_insert_suscripcion = "INSERT INTO Suscripciones (id_usuario, tipo_suscripcion, valor) VALUES (?,'Básico',0)";

@@ -1,3 +1,16 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+include_once '../../backend/conexion/conexion.php';
+include_once '../../backend/usuarios/obtener-usuario.php';
+
+if (!isset($_SESSION["id_empresa"])) {
+    header("Location: http://codeflow-new/codeflow/views/public/login.html");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -31,15 +44,15 @@
                         alt="Tech Solutions">
                 </div>
                 <div class="company-info">
-                    <h3>Tech Solutions</h3>
-                    <p>Plan Empresa</p>
+                    <h3><?php echo htmlspecialchars($nombre_usuario) ?></h3>
+                    <p>Plan <?php echo htmlspecialchars($datos['tipo_suscripcion']) ?></p>
                 </div>
             </div>
 
             <nav class="sidebar-nav">
                 <ul>
                     <li class="active">
-                        <a href="#">
+                        <a href="dashboard.php">
                             <i class="fas fa-home"></i>
                             <span>Inicio</span>
                         </a>
@@ -51,13 +64,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="postulaciones.php">
                             <i class="fas fa-users"></i>
-                            <span>Freelancers</span>
+                            <span>Postulaciones</span>
                         </a>
                     </li>
                     <li>
-                        <a href="../public/suscripcion.php">
+                        <a href="suscripcion.php">
                             <i class="fas fa-coins"></i>
                             <span>Suscripciones</span>
                         </a>
@@ -79,13 +92,10 @@
                         <i class="fas fa-bell"></i>
                         <span class="notification-badge">3</span>
                     </button>
-                    <button class="message-btn">
-                        <i class="fas fa-envelope"></i>
-                        <span class="message-badge">5</span>
-                    </button>
                     <div class="user-dropdown" id="user-dropdown">
                         <div class="user-avatar">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Usuario">
+                            <img src="https://ui-avatars.com/api/?name=Tech+Solutions&background=6e3aed&color=fff"
+                                alt="Usuario">
                         </div>
                         <i class="fas fa-chevron-down"></i>
                     </div>
@@ -96,7 +106,7 @@
                 <!-- Bienvenida y estadísticas -->
                 <section class="welcome-section">
                     <div class="welcome-message">
-                        <h1>Bienvenido, <span>Tech Solutions</span></h1>
+                        <h1>Bienvenido, <span><?php echo htmlspecialchars($nombre_usuario) ?></span></h1>
                         <p>Aquí tienes un resumen de tu actividad reciente</p>
                     </div>
 
@@ -379,12 +389,12 @@
                     <div class="user-modal-header">
                         <div class="user-info">
                             <div class="user-avatar large">
-                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Usuario">
+                                <img src="https://ui-avatars.com/api/?name=Tech+Solutions&background=6e3aed&color=fff" alt="Usuario">
                             </div>
                             <div>
-                                <h3>María Rodríguez</h3>
-                                <p>maria@example.com</p>
-                                <span class="badge-plan">Plan Empresa</span>
+                                <h3><?php echo htmlspecialchars($nombre_usuario) ?></h3>
+                                <p><?php echo htmlspecialchars($datos['correo_corporativo']) ?></p>
+                                <span class="badge-plan">Plan <?php echo htmlspecialchars($datos['tipo_suscripcion']) ?></span>
                             </div>
                         </div>
                     </div>

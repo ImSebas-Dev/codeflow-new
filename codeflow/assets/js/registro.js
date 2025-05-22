@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     const tabBtns = document.querySelectorAll('.tab-btn');
     const registerForms = document.querySelectorAll('.register-form');
+    const descriptionTextarea = document.getElementsByClassName('freelancer-bio');
+    const descCounter = document.getElementById('descCounter');
 
     // Maneja las pestañas de registro
     tabBtns.forEach(btn => {
@@ -52,48 +54,19 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Maneja las etiquetas de habilidades
-    const skillsInput = document.getElementById('freelancer-skills');
-    const skillsTagsContainer = document.querySelector('.skills-tags');
-    const hiddenInput = document.getElementById('habilidades-hidden');
+    // Contador de caracteres para descripción
+    for (let textarea of descriptionTextarea) {
+        textarea.addEventListener('input', function () {
+            const currentLength = textarea.value.length;
+            descCounter.textContent = currentLength;
 
-    let skills = [];
-
-    if (skillsInput) {
-        skillsInput.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter' || e.key === ',') {
-                e.preventDefault();
-                const skill = this.value.trim().replace(',', '');
-                if (skill && !skills.includes(skill)) {
-                    addSkillTag(skill);
-                    skills.push(skill);
-                    updateHiddenInput();
-                    this.value = '';
-                }
+            if (currentLength > 1000) {
+                textarea.value = textarea.value.substring(0, 1000);
+                descCounter.textContent = 1000;
             }
-        });
 
-        function addSkillTag(skill) {
-            const tag = document.createElement('div');
-            tag.className = 'skill-tag';
-            tag.innerHTML = `
-                        ${skill}
-                        <button type="button" class="remove-skill" aria-label="Eliminar habilidad">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    `;
-            skillsTagsContainer.appendChild(tag);
-
-            // Agregar evento para eliminar tag
-            tag.querySelector('.remove-skill').addEventListener('click', function () {
-                tag.remove();
-                skills = skills.filter(s => s !== skill);
-                updateHiddenInput();
-            });
-        }
-
-        function updateHiddenInput() {
-            hiddenInput.value = skills,join(',');
-        }
+            // Inicializar contador de descripción
+            descCounter.textContent = descriptionTextarea.value.length;
+        })
     }
 })

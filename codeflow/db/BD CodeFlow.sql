@@ -83,7 +83,6 @@ CREATE TABLE IF NOT EXISTS Empresas (
 CREATE TABLE IF NOT EXISTS Proyectos (
     id_proyecto BIGINT PRIMARY KEY AUTO_INCREMENT,
     id_empresa BIGINT NOT NULL,
-    id_freelancer BIGINT,
     titulo VARCHAR(255) NOT NULL,
     descripcion TEXT,
     estado ENUM('Abierto', 'En progreso', 'Finalizado') DEFAULT 'Abierto' NOT NULL,
@@ -91,8 +90,17 @@ CREATE TABLE IF NOT EXISTS Proyectos (
     fecha_finalizacion DATE,
     comentarios TEXT,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_empresa) REFERENCES Empresas(id_empresa) ON DELETE CASCADE,
-    FOREIGN KEY (id_freelancer) REFERENCES Freelancers(id_freelancer) ON DELETE CASCADE
+    FOREIGN KEY (id_empresa) REFERENCES Empresas(id_empresa) ON DELETE CASCADE
+) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS Postulaciones (
+    id_postulacion BIGINT PRIMARY KEY AUTO_INCREMENT,
+    id_freelancer BIGINT NOT NULL,
+    id_proyecto BIGINT NOT NULL,
+    estado ENUM('Pendiente', 'Aceptada', 'Rechazada') DEFAULT 'Pendiente' NOT NULL,
+    fecha_postulacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_freelancer) REFERENCES Freelancers(id_freelancer) ON DELETE CASCADE,
+    FOREIGN KEY (id_proyecto) REFERENCES Proyectos(id_proyecto) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS Historial_Proyectos (
@@ -108,27 +116,10 @@ CREATE TABLE IF NOT EXISTS Proyectos_Freelancer (
     id_proyecto_freelancer BIGINT PRIMARY KEY AUTO_INCREMENT,
     id_proyecto BIGINT NOT NULL,
     id_freelancer BIGINT NOT NULL,
+    id_postulacion BIGINT NOT NULL,
     FOREIGN KEY (id_proyecto) REFERENCES Proyectos(id_proyecto) ON DELETE CASCADE,
-    FOREIGN KEY (id_freelancer) REFERENCES Freelancers(id_freelancer) ON DELETE CASCADE
-) ENGINE = InnoDB;
-
--- BLOQUE 4: POSTULACIONES
-
-CREATE TABLE IF NOT EXISTS Estado_Postulacion (
-    id_estado_postulacion BIGINT PRIMARY KEY AUTO_INCREMENT,
-    estado ENUM('pendiente', 'aceptada', 'rechazada') DEFAULT 'pendiente' NOT NULL,
-    fecha_estado TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-) ENGINE = InnoDB;
-
-CREATE TABLE IF NOT EXISTS Postulaciones (
-    id_postulacion BIGINT PRIMARY KEY AUTO_INCREMENT,
-    id_freelancer BIGINT NOT NULL,
-    id_proyecto BIGINT NOT NULL,
-    id_estado_postulacion BIGINT NOT NULL,
-    fecha_postulacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_freelancer) REFERENCES Freelancers(id_freelancer) ON DELETE CASCADE,
-    FOREIGN KEY (id_proyecto) REFERENCES Proyectos(id_proyecto) ON DELETE CASCADE,
-    FOREIGN KEY (id_estado_postulacion) REFERENCES Estado_Postulacion(id_estado_postulacion) ON DELETE CASCADE
+    FOREIGN KEY (id_postulacion) REFERENCES Postulaciones(id_postulacion) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 -- BLOQUE 5: PAGOS

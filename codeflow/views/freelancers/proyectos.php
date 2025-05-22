@@ -4,6 +4,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 include "../../backend/conexion/conexion.php";
 include "../../backend/proyectos/obtener-proyecto-freelancer.php";
+include "../../backend/usuarios/obtener-usuario.php";
 
 if (!isset($_SESSION['id_freelancer'])) {
     header("Location: http://localhost/codeflow-new/codeflow/views/public/login.html");
@@ -45,8 +46,8 @@ $proyectos = obtenerProyectosAbiertos($conn);
                     <span class="online-status"></span>
                 </div>
                 <div class="freelancer-info">
-                    <h3>Carlos Martínez</h3>
-                    <p>Fullstack Developer</p>
+                    <h3><?php echo htmlspecialchars($nombre_usuario) ?></h3>
+                    <p><?php echo htmlspecialchars($datos['titulo']) ?></p>
                     <div class="freelancer-rating">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -64,7 +65,6 @@ $proyectos = obtenerProyectosAbiertos($conn);
                         <a href="dashboard.php">
                             <i class="fas fa-home"></i>
                             <span>Inicio</span>
-                            <span class="menu-badge">3</span>
                         </a>
                     </li>
                     <li class="active">
@@ -73,7 +73,7 @@ $proyectos = obtenerProyectosAbiertos($conn);
                             <span>Proyectos</span>
                         </a>
                     </li>
-                    <a href="proyectos.php">
+                    <a href="mis-proyectos.php">
                             <i class="fas fa-diagram-project"></i>
                             <span>Mis Proyectos</span>
                         </a>
@@ -91,7 +91,7 @@ $proyectos = obtenerProyectosAbiertos($conn);
                         </a>
                     </li>
                     <li>
-                        <a href="../public/suscripcion.php">
+                        <a href="suscripcion.php">
                             <i class="fas fa-coins"></i>
                             <span>Suscripciones</span>
                         </a>
@@ -246,9 +246,12 @@ $proyectos = obtenerProyectosAbiertos($conn);
                                         <button class="btn btn-outline btn-small">
                                             <i class="fas fa-comments"></i> Chat
                                         </button>
-                                        <button class="btn btn-primary btn-small">
-                                            <i class="fas fa-tasks"></i> Postularse
-                                        </button>
+                                        <form method="POST" action="../../backend/proyectos/postulacion-proyectos.php">
+                                            <input type="hidden" name="id-proyecto" value="<?= $proyecto['id_proyecto'] ?>">
+                                            <button type="submit" class="btn btn-primary btn-small postulate">
+                                                <i class="fas fa-tasks"></i> Postularse
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -282,9 +285,9 @@ $proyectos = obtenerProyectosAbiertos($conn);
                             <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Usuario">
                         </div>
                         <div>
-                            <h3>Carlos Méndez</h3>
-                            <p>carlos@example.com</p>
-                            <span class="badge-plan">Plan Empresa</span>
+                            <h3><?php echo htmlspecialchars($nombre_usuario) ?></h3>
+                            <p><?php echo htmlspecialchars($datos['correo']) ?></p>
+                            <span class="badge-plan">Plan <?php echo htmlspecialchars($datos['tipo_suscripcion']) ?></span>
                         </div>
                     </div>
                 </div>
@@ -321,7 +324,7 @@ $proyectos = obtenerProyectosAbiertos($conn);
             </div>
         </div>
     </div>
-    
+
 </body>
 <script src="../../assets/js/proyectos.js" defer></script>
 

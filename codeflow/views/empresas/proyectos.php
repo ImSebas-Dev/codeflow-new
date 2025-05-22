@@ -4,6 +4,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 include "../../backend/conexion/conexion.php";
 include "../../backend/proyectos/obtener-proyecto.php";
+include "../../backend/usuarios/obtener-usuario.php";
 
 if (!isset($_SESSION['id_empresa'])) {
     header("Location: http://localhost/pruebas/views/public/login.html");
@@ -45,8 +46,8 @@ $id_empresa = $_SESSION['id_empresa'];
                         alt="Tech Solutions">
                 </div>
                 <div class="company-info">
-                    <h3>Tech Solutions</h3>
-                    <p>Plan Empresa</p>
+                    <h3><?php echo htmlspecialchars($nombre_usuario) ?></h3>
+                    <p>Plan <?php echo htmlspecialchars($datos['tipo_suscripcion']) ?></p>
                 </div>
             </div>
 
@@ -62,17 +63,16 @@ $id_empresa = $_SESSION['id_empresa'];
                         <a href="#">
                             <i class="fas fa-briefcase"></i>
                             <span>Proyectos</span>
-                            <span class="menu-badge">5</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="postulaciones.php">
                             <i class="fas fa-users"></i>
-                            <span>Freelancers</span>
+                            <span>Postulaciones</span>
                         </a>
                     </li>
                     <li>
-                        <a href="../public/suscripcion.php">
+                        <a href="suscripcion.php">
                             <i class="fas fa-coins"></i>
                             <span>Suscripciones</span>
                         </a>
@@ -80,7 +80,7 @@ $id_empresa = $_SESSION['id_empresa'];
                 </ul>
             </nav>
 
-            <div class="sidebar-footer" id="create-project-btn">
+            <div class="sidebar-footer create-project-btn">
                 <a class="btn btn-primary">
                     <i class="fas fa-plus"></i> Nuevo proyecto
                 </a>
@@ -262,9 +262,9 @@ $id_empresa = $_SESSION['id_empresa'];
                                     alt="Usuario">
                             </div>
                             <div>
-                                <h3>Tech Solutions</h3>
-                                <p>tech@example.com</p>
-                                <span class="badge-plan">Plan Empresa</span>
+                                <h3><?php echo htmlspecialchars($nombre_usuario) ?></h3>
+                                <p><?php echo htmlspecialchars($datos['correo_corporativo']) ?></p>
+                                <span class="badge-plan">Plan <?php echo htmlspecialchars($datos['tipo_suscripcion']) ?></span>
                             </div>
                         </div>
                     </div>
@@ -327,7 +327,7 @@ $id_empresa = $_SESSION['id_empresa'];
                         <div class="form-group">
                             <label for="projectDescription">Descripción detallada*</label>
                             <div class="input-text">
-                                <textarea name="description-project" id="projectDescription" rows="5"
+                                <textarea name="description-project" class="projectDescription" rows="5"
                                 placeholder="Describe los objetivos, requisitos y especificaciones del proyecto..."
                                 required></textarea>
                             </div>
