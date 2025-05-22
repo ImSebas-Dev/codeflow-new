@@ -3,15 +3,13 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 include "../../backend/conexion/conexion.php";
-include "../../backend/proyectos/obtener-proyecto-freelancer.php";
+include "../../backend/proyectos/obtener-proyecto-abierto.php";
 include "../../backend/usuarios/obtener-usuario.php";
 
 if (!isset($_SESSION['id_freelancer'])) {
     header("Location: http://localhost/codeflow-new/codeflow/views/public/login.html");
     exit();
 }
-
-$proyectos = obtenerProyectosAbiertos($conn);
 ?>
 
 <!DOCTYPE html>
@@ -119,15 +117,10 @@ $proyectos = obtenerProyectosAbiertos($conn);
                         <i class="fas fa-bell"></i>
                         <span class="notification-badge">2</span>
                     </button>
-                    <button class="message-btn">
-                        <i class="fas fa-envelope"></i>
-                        <span class="message-badge">1</span>
-                    </button>
                     <div class="user-dropdown" id="user-dropdown">
                         <div class="user-avatar">
                             <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Usuario">
                         </div>
-                        <span>Carlos</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                 </div>

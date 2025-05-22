@@ -201,26 +201,15 @@ $id_empresa = $_SESSION['id_empresa'];
                                         <div class="project-progress">
                                             <div class="progress-info">
                                                 <span>Progreso</span>
-                                                <span>65%</span>
+                                                <span>0%</span>
                                             </div>
                                             <div class="progress-bar">
-                                                <div class="progress-fill" style="width: 65%"></div>
+                                                <div class="progress-fill" style="width: 0%"></div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="project-card-footer">
-                                        <div class="project-team">
-                                            <div class="team-avatars">
-                                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Carlos M."
-                                                    title="Carlos M. - Fullstack">
-                                                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Ana L."
-                                                    title="Ana L. - UI/UX">
-                                                <span class="more-members">+1</span>
-                                            </div>
-                                            <span class="team-count">3 freelancers</span>
-                                        </div>
-
                                         <div class="project-actions">
                                             <button class="btn btn-outline btn-small">
                                                 <i class="fas fa-eye"></i> Ver

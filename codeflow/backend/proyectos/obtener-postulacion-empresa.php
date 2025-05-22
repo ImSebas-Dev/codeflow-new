@@ -10,7 +10,7 @@ $sql = "SELECT p.*,
         FROM Postulaciones p
         INNER JOIN Proyectos pr ON p.id_proyecto = pr.id_proyecto
         INNER JOIN Freelancers f ON p.id_freelancer = f.id_freelancer
-        WHERE pr.id_empresa = ?";
+        WHERE pr.id_empresa = ? AND p.estado = 'Pendiente'";
 
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $_SESSION["id_empresa"]);

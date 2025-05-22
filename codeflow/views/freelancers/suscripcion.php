@@ -52,7 +52,7 @@ if (!isset($_SESSION['id_usuario'])) {
             
             <nav class="sidebar-nav">
                 <ul>
-                    <li class="active">
+                    <li>
                         <a href="dashboard.php">
                             <i class="fas fa-home"></i>
                             <span>Inicio</span>
@@ -82,7 +82,7 @@ if (!isset($_SESSION['id_usuario'])) {
                             <span>Mensajes</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="suscripcion.php">
                             <i class="fas fa-coins"></i>
                             <span>Suscripciones</span>
@@ -103,10 +103,6 @@ if (!isset($_SESSION['id_usuario'])) {
                     <button class="notification-btn">
                         <i class="fas fa-bell"></i>
                         <span class="notification-badge">3</span>
-                    </button>
-                    <button class="message-btn">
-                        <i class="fas fa-envelope"></i>
-                        <span class="message-badge">5</span>
                     </button>
                     <div class="user-dropdown" id="user-dropdown">
                         <div class="user-avatar">

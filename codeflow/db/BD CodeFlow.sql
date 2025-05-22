@@ -168,17 +168,26 @@ CREATE TABLE IF NOT EXISTS Contratos (
 
 -- BLOQUE 6: TAREAS Y CALIFICACIONES
 
+CREATE TABLE IF NOT EXISTS Comentarios (
+    id_comentario BIGINT PRIMARY KEY AUTO_INCREMENT,
+    id_freelancer BIGINT NOT NULL,
+    comentario TEXT NOT NULL,
+    fecha_comentario TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_freelancer) REFERENCES Freelancers(id_freelancer) ON DELETE CASCADE
+) ENGINE = InnoDB;
+
 CREATE TABLE IF NOT EXISTS Tareas (
     id_tarea BIGINT PRIMARY KEY AUTO_INCREMENT,
-    id_proyecto BIGINT NOT NULL,
+    id_proyecto_freelancer BIGINT NOT NULL,
+    id_comentario BIGINT,
     titulo VARCHAR(255) NOT NULL,
     descripcion TEXT,
-    estado ENUM('pendiente', 'en progreso', 'finalizada', 'cancelada') DEFAULT 'pendiente',
+    estado ENUM('En progreso', 'Finalizada', 'Cancelada') DEFAULT 'En progreso',
     repositorio VARCHAR(255), -- URL del repositorio en GitHub
-    comentarios TEXT,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_entrega DATE,
-    FOREIGN KEY (id_proyecto) REFERENCES Proyectos(id_proyecto) ON DELETE CASCADE
+    FOREIGN KEY (id_comentario) REFERENCES Comentarios(id_comentario) ON DELETE CASCADE,
+    FOREIGN KEY (id_proyecto_freelancer) REFERENCES Proyectos_Freelancer(id_proyecto_freelancer) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS Tareas_Freelancer (

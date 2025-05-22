@@ -7,6 +7,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const userModal = document.getElementById('userModal');
     const descriptionTextarea = document.getElementsByClassName('projectDescription');
     const descCounter = document.getElementById('descCounter');
+    const createTaskModal = document.getElementById('createTaskModal');
+    const openTaskModalBtn = document.getElementsByClassName('task-modal-open');
+
 
     // Abre el user modal
     userDropdown.addEventListener('click', (e) => {
@@ -19,6 +22,16 @@ document.addEventListener("DOMContentLoaded", function () {
         btnProject.addEventListener('click', function () {
             createProjectModal.style.display = 'block';
         });    
+    }
+
+    // Abrir modal con botón de crear tarea
+    for (let btnTask of openTaskModalBtn) {
+        btnTask.addEventListener('click', function () { 
+            const btnId = document.getElementById('value-id-proyecto');
+            const idProyectoInput = document.getElementById('input-id-proyecto');
+            idProyectoInput.value = btnId.value; // Establecer el valor en el input oculto antes de abrir el modal de crear tarea
+            createTaskModal.style.display = 'block';
+        });
     }
 
     // Cerrar modal con botón de cerrar
@@ -39,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             userModal.style.display = 'none';
+            createTaskModal.style.display = 'none';
         }
     });
 

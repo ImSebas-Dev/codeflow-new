@@ -5,41 +5,38 @@ if (session_status() == PHP_SESSION_NONE) {
 include '../conexion/conexion.php'; // Aquí conectas a tu BD
 
 // Asegúrate de que el freelancer esté logueado
-if (!isset($_SESSION['freelancer_id'])) {
+if (!isset($_SESSION['id_freelancer'])) {
     die("Acceso denegado.");
 }
 
-$freelancer_id = $_SESSION['freelancer_id'];
+$id_freelancer = $_SESSION['id_freelancer'];
 
-// Recoger los datos del formulario
-$titulo = trim($_POST['detailProjectTitle']);
-$descripcion = trim($_POST['descripcion']);
-$fecha_entrega = $_POST['fecha_entrega'];
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $id_proyecto = $_POST['id-proyecto'];
+    $titulo = $_POST['task-title'];
+    $descripcion = $_POST['task-description'];
+    $reposirotio = $_POST['task-repository'];
+    $fecha_limite = $_POST['limit-date'];
 
-// Buscar el proyecto asignado al freelancer
-$query = "SELECT id_proyecto FROM proyecto_freelancer WHERE id_freelancer = ? LIMIT 1";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("i", $freelancer_id);
-$stmt->execute();
-$result = $stmt->get_result();
+    // Validaciones estrictas
+    if (empty($titulo) || empty($descripcion) || empty($reposirotio) || empty($fecha_limite)) {
+        die("Por favor, complete todos los campos.");
+    }
 
-if ($result->num_rows === 0) {
-    die("No se encontró ningún proyecto asignado.");
-}
+    // Preparar la consulta SQL para insertar la tarea
+    $sql = "INSERT INTO Tareas (id_freelancer, id_proyecto, titulo, descripcion, repositorio, fecha_limite) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("iissss", $id_freelancer, $id_proyecto, $titulo, $descripcion, $reposirotio, $fecha_limite);
 
-$row = $result->fetch_assoc();
-$id_proyecto = $row['id_proyecto'];
-
-// Insertar la tarea
-$insert = "INSERT INTO tareas (titulo, descripcion, fecha_entrega, id_proyecto) VALUES (?, ?, ?, ?)";
-$stmt_insert = $conn->prepare($insert);
-$stmt_insert->bind_param("sssi", $titulo, $descripcion, $fecha_entrega, $id_proyecto);
-
-if ($stmt_insert->execute()) {
-    echo "✅ Tarea creada correctamente.";
+    if ($stmt->execute()) {
+        header("Location: ../views/freelancers/tareas.php");
+        exit();
+    } else {
+        die("Error al insertar la tarea: " . $stmt->error);
+    }
+    $stmt->close();
+    $conn->close();
 } else {
-    echo "❌ Error al crear la tarea: " . $conn->error;
+    die("Método de solicitud no válido.");
 }
-
-$conn->close();
 ?>

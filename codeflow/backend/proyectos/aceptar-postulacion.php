@@ -28,6 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("iii", $id_proyecto, $id_freelancer, $id_postulacion);
         $stmt->execute();
         $stmt->close();
+
+        // Actualizamos el estado del proyecto a 'En progreso'
+        $stmt = $conn->prepare("UPDATE Proyectos SET estado = 'En progreso' WHERE id_proyecto = ?");
+        $stmt->bind_param("i", $id_proyecto);
+        $stmt->execute();
+        $stmt->close();
     }
 
     header('Location: http://localhost/codeflow-new/codeflow/views/empresas/postulaciones.php');
